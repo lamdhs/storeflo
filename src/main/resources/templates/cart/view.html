@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{/layout/index :: dynamic(~{::main})}">
+
+<body>
+	<main class="main-content">
+		<div class="breadcrumbs-area position-relative">
+			<div class="container">
+				<div class="row">
+					<div class="col-12 text-center">
+						<div class="breadcrumb-content position-relative section-content">
+							<h3 class="title-3">Shop Sidebar</h3>
+							<ul>
+								<li><a href="index.html">Home</a></li>
+								<li>Cart</li>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="page-header-area m-5">
+			<div class="container">
+				<div class="row">
+					<div class="col-12 text-center">
+						<div class="page-header-content">
+							<h4 class="title mt-0">Your Shopping Cart</h4>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<section class="product-area shopping-cart-area">
+			<div class="container">
+				<div class="row">
+					<div class="col-12">
+						<div class="shopping-cart-wrap">
+							<div class="cart-table table-responsive">
+								<table class="table">
+									<thead>
+										<tr>
+											<th class="indecor-product-remove">Remove</th>
+											<th class="indecor-product-thumbnail">Image</th>
+											<th class="indecor-product-name">Product</th>
+											<th class="indecor-product-price">Price</th>
+											<th class="indecor-product-quantity">Quantity</th>
+											<th class="indecor-product-subtotal">Subtotal</th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr ng-repeat="item in cart.items">
+											<td class="indecor-product-remove">
+												<a href="javascript:(0);" ng-click="cart.remove(item.id)">
+													<i class="fa fa-trash"></i>
+												</a>
+											</td>
+											<td class="indecor-product-thumbnail">
+												<img class="w-50" src="/assets/images/product/{{item.image}}">
+											</td>
+											<td class="indecor-product-name">
+												<h4 class="title">{{item.name}}</h4>
+											</td>
+											<td class="indecor-product-price">
+												<span class="price">${{item.price | number:2}}</span>
+											</td>
+											<td class="indecor-product-quantity">
+												<input type="number" pattern="[0-9]*" id="spinner" name="value" value="1" min="1" max="200"
+													step="1" ng-change="cart.saveToLocalStorage()" ng-model="item.qty">
+											</td>
+											<td class="indecor-product-subtotal">
+												<span class="price">${{item.qty*item.price | number:2}}</span>
+											</td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+							<div class="row">
+								<div class="col-md-12 col-lg-8 col-12">
+									<div class="col-4">
+										<div class="d-flex justify-content-between">
+											<a class="btn btn-outline-dark " href="/">Continue Shopping</a>
+											<a class="btn btn-outline-danger" href="javascript:(0);" ng-click="cart.clear()">Clear Cart</a>
+										</div>
+									</div>
+								</div>
+								<div class="col-md-12 col-lg-4 col-12 mt-4">
+									<div class="cart-page-total">
+										<h3>Cart Totals</h3>
+										<ul class="mt-3 mb-3">
+											<li class="fs-6">
+												Subtotal:
+												<strong>${{cart.amount | number : 2}}</strong>
+											</li>
+											<li class="fs-6">
+												Total:
+												<strong class="money">${{cart.amount | number : 2}}</strong>
+											</li>
+										</ul>
+										<a class="btn flosun-button  secondary-btn theme-color rounded-0" th:href="@{/cart/checkout}">Proceed to Checkout</a>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+	</main>
+</body>
+</html>
